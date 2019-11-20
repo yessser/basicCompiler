@@ -28,8 +28,11 @@ Arithme return Arithme;
 \>\n return F;
 \( return oprt;
 \) return cprt;
-\n 
-FONCTION\ {IDFFONC} return idfFonc; 
+\n
+FONCTION" "*{IDFFONC} return idfFonc; 
+\[ return obrk;   
+\] return cbrk;
+CONST return mc_const;
 {IDF}  return idf;
 {cst} return cst;
 = return aff;

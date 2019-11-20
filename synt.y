@@ -4,6 +4,7 @@
 %token  idf   cst   aff  pvg algo var dp vg entier reel chaine  deb fin
         InOut Arithme O F include 
         idfFonc oprt cprt
+        obrk cbrk mc_const
   
 %%
 S: LISTE_BIBL algo idf DECLARATION CORPS { printf("syntaxe correcte");};
@@ -17,19 +18,26 @@ DECLARATION: var DECLARATIONFONC DECLARATIONVAR
 DECLARATIONFONC:  idfFonc oprt LISTE_PARAM cprt dp TYPE var DECLARATIONVAR CORPS  DECLARATIONFONC 
             |
 ;
-LISTE_PARAM: idf dp TYPE LISTE_PARAM1
+LISTE_PARAM: idf dp TYPE vg LISTE_PARAM
+            |idf dp TYPE
             |
 ;
-LISTE_PARAM1: vg idf dp TYPE LISTE_PARAM1
-            |
-;
+
+
 TYPE: entier | reel | chaine
 ;
-DECLARATIONVAR: LISTE_IDF dp TYPE pvg
+DECLARATIONVAR: LISTE_IDF dp TYPE pvg DECLARATIONVAR 
+                |
 ;
 LISTE_IDF: idf vg LISTE_IDF
+          |idf obrk cst cbrk vg LISTE_IDF
+          |mc_const idf vg LISTE_IDF
           |idf
+          |idf obrk cst cbrk
+          |mc_const idf
 ;
+
+
 CORPS: deb  LISTE_INST fin
 ;	
 

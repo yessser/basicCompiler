@@ -59,7 +59,10 @@
      include = 275,
      idfFonc = 276,
      oprt = 277,
-     cprt = 278
+     cprt = 278,
+     obrk = 279,
+     cbrk = 280,
+     mc_const = 281
    };
 #endif
 

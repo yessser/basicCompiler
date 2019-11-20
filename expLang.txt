@@ -2,14 +2,14 @@ $$include<InOut>
 $$include<Arithme>
 ALGORITHME isil
 VAR
-FONCTION t_8ldsds_ddd(a:entier.b:reel):entier
-VAR y.u:entier#
-DEBUT
-a=y#
-FIN
-x.Y.g:entier#
+FONCTION    xt_8lds_ddd(a:entier.b:reel):entier
+    VAR y.u:entier#
+    DEBUT
+        a=y#
+    FIN
+x.CONST Y.g[4]:entier#
 
 DEBUT 
-x=y#
-y=25#
+    x=y#
+    y=25#
 FIN
