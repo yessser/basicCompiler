@@ -1,0 +1,9 @@
+$$include<InOut>
+$$include<Arithme>
+ALGORITHME isil
+VAR x.Y.g:entier#
+
+DEBUT 
+x=y#
+y= 25#
+FIN
