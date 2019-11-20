@@ -48,14 +48,18 @@
      dp = 264,
      vg = 265,
      entier = 266,
-     deb = 267,
-     fin = 268,
-     InOut = 269,
-     Arithme = 270,
-     O = 271,
-     F = 272,
-     include = 273,
-     NL = 274
+     reel = 267,
+     chaine = 268,
+     deb = 269,
+     fin = 270,
+     InOut = 271,
+     Arithme = 272,
+     O = 273,
+     F = 274,
+     include = 275,
+     idfFonc = 276,
+     oprt = 277,
+     cprt = 278
    };
 #endif
 

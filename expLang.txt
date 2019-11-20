@@ -1,9 +1,15 @@
 $$include<InOut>
 $$include<Arithme>
 ALGORITHME isil
-VAR x.Y.g:entier#
+VAR
+FONCTION t_8ldsds_ddd(a:entier.b:reel):entier
+VAR y.u:entier#
+DEBUT
+a=y#
+FIN
+x.Y.g:entier#
 
 DEBUT 
 x=y#
-y= 25#
+y=25#
 FIN
