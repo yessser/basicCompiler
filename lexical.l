@@ -6,8 +6,8 @@ int nb_char=1;
 lettre [a-zA-Z]
 chiffre [0-9]
 IDF {lettre}({lettre}|{chiffre}|_)*
-IDFCmntr (.|\n)*
-IDFTxt (.)*
+IDFCmntr [^"*/"]*
+IDFTxt [^"""]*
 cst {chiffre}+
 IDFFONC {lettre}({lettre}|{chiffre}|_){1,11}
 
