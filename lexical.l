@@ -57,8 +57,8 @@ FONCTION" "*{IDFFONC} return idfFonc;
 \] return cbrk;
 CONST return mc_const;
 {IDF}\[{cst}\] return idfTAB;
-{IDF}  {yylval.str=strdup(yytext); return idf;}
-{cst} {yylval.entier=atoi(yytext);  return cst;}
+{IDF}  {yylval.str=strdup(yytext); inserer(yytext,"idf"); return idf;}
+{cst} {yylval.entier=atoi(yytext); inserer(yytext,"idf"); return cst;}
 := return aff;
 # return pvg;
 \+ return plus;

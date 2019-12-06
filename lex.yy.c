@@ -1176,12 +1176,12 @@ return idfTAB;
 case 38:
 YY_RULE_SETUP
 #line 60 "lexical.l"
-{yylval.str=strdup(yytext); return idf;}
+{yylval.str=strdup(yytext); inserer(yytext,"idf"); return idf;}
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
 #line 61 "lexical.l"
-{yylval.entier=atoi(yytext);  return cst;}
+{yylval.entier=atoi(yytext); inserer(yytext,"idf"); return cst;}
 	YY_BREAK
 case 40:
 YY_RULE_SETUP

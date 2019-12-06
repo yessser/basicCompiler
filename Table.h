@@ -9,7 +9,7 @@ typedef struct
     char TypeEntite[20];
 }TypeTS;
 
-extern TypeTS ts[100];
+TypeTS ts[100];
 
 int CpTabSym=0;
 

@@ -2,7 +2,7 @@ $$include<InOut>
 $$include<Arithme>
 ALGORITHME isil
 VAR
-x.y.y.CONST Y.g[0]:entier#
+x.y.CONST Y.g[0]:entier#
 b:reel#
 c:chaine#
 DEBUT 

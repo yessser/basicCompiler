@@ -2,10 +2,17 @@
 #include <stdio.h>
 #include <string.h>
 
-int nb_ligne=1;
 char suavType[20];
+int nb_ligne=1;
+
 
 %}
+
+%union{
+        int entier;
+        char* str;
+}
+
 %token  <str>idf <entier>cst aff  pvg algo var dp vg <str>entier <str>reel <str>chaine  deb fin idfTAB
         InOut Arithme O F include 
         idfFonc
@@ -15,11 +22,7 @@ char suavType[20];
         notEqual great infr greatEql infrEql equal
         plus minus mult dive tanq Faire Fait 
         Str
-%locations
-%union{
-        int entier;
-        char* str;
-}
+
         
   
 %%
