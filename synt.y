@@ -2,20 +2,9 @@
 #include <stdio.h>
 #include <string.h>
 
+int nb_ligne=1;
+char suavType[20];
 
-extern int yylineno;
-int cptTypes;
-int CpTabSym;
-
-void insererType(char Type[])
-        {    
-                for(int i=cptTypes;i>0;i--)
-                {
-                    strcpy(ts[CpTabSym-i].TypeEntite,Type);
-                }
-                cptTypes=0;
-                
-        }  
 %}
 %token  <str>idf <entier>cst aff  pvg algo var dp vg <str>entier <str>reel <str>chaine  deb fin idfTAB
         InOut Arithme O F include 
@@ -53,14 +42,14 @@ LISTE_PARAM: idf dp TYPE vg LISTE_PARAM
             |idf dp TYPE
             |
 ;
-TYPE:entier {insererType($1);}
-    |reel {insererType($1);}
-    |chaine  {insererType($1);}
+TYPE:entier  { strcpy(suavType,$1);  }
+    |reel  { strcpy(suavType,$1);  }
+    |chaine  { strcpy(suavType,$1);  }
 ;
 DECLARATIONVAR: LISTE_IDF dp TYPE pvg DECLARATIONVAR 
                 |
 ;
-IDENTIF:idf {inserer($1,"idf"); }
+IDENTIF:idf { if (doubleDeclaration($1)==1){ insererType($1,suavType); } else printf("erreur Semantique: double declation de %s, la ligne %d\n", $1, nb_ligne); }
         | idfTAB 
         | mc_const idf
 ;

@@ -71,22 +71,11 @@
 #include <stdio.h>
 #include <string.h>
 
+int nb_ligne=1;
+char suavType[20];
 
-extern int yylineno;
-int cptTypes;
-int CpTabSym;
 
-void insererType(char Type[])
-        {    
-                for(int i=cptTypes;i>0;i--)
-                {
-                    strcpy(ts[CpTabSym-i].TypeEntite,Type);
-                }
-                cptTypes=0;
-                
-        }  
-
-#line 90 "synt.tab.c" /* yacc.c:337  */
+#line 79 "synt.tab.c" /* yacc.c:337  */
 # ifndef YY_NULLPTR
 #  if defined __cplusplus
 #   if 201103L <= __cplusplus
@@ -176,12 +165,12 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 30 "synt.y" /* yacc.c:352  */
+#line 19 "synt.y" /* yacc.c:352  */
 
         int entier;
         char* str;
 
-#line 185 "synt.tab.c" /* yacc.c:352  */
+#line 174 "synt.tab.c" /* yacc.c:352  */
 };
 
 typedef union YYSTYPE YYSTYPE;
@@ -505,12 +494,12 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    39,    39,    42,    43,    45,    45,    47,    49,    50,
-      52,    53,    54,    56,    57,    58,    60,    61,    63,    64,
-      65,    67,    68,    72,    75,    75,    75,    75,    75,    75,
-      77,    78,    81,    82,    84,    84,    84,    84,    86,    86,
-      86,    88,    89,    90,    94,    98,    98,    98,    98,    98,
-      98,   100,   103,   104,   106,   109,   111,   114,   115,   117
+       0,    28,    28,    31,    32,    34,    34,    36,    38,    39,
+      41,    42,    43,    45,    46,    47,    49,    50,    52,    53,
+      54,    56,    57,    61,    64,    64,    64,    64,    64,    64,
+      66,    67,    70,    71,    73,    73,    73,    73,    75,    75,
+      75,    77,    78,    79,    83,    87,    87,    87,    87,    87,
+      87,    89,    92,    93,    95,    98,   100,   103,   104,   106
 };
 #endif
 
@@ -1459,37 +1448,37 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 39 "synt.y" /* yacc.c:1652  */
+#line 28 "synt.y" /* yacc.c:1652  */
     { printf("syntaxe correcte");YYACCEPT;}
-#line 1465 "synt.tab.c" /* yacc.c:1652  */
+#line 1454 "synt.tab.c" /* yacc.c:1652  */
     break;
 
   case 13:
-#line 56 "synt.y" /* yacc.c:1652  */
-    {insererType((yyvsp[0].str));}
-#line 1471 "synt.tab.c" /* yacc.c:1652  */
+#line 45 "synt.y" /* yacc.c:1652  */
+    { strcpy(suavType,(yyvsp[0].str));  }
+#line 1460 "synt.tab.c" /* yacc.c:1652  */
     break;
 
   case 14:
-#line 57 "synt.y" /* yacc.c:1652  */
-    {insererType((yyvsp[0].str));}
-#line 1477 "synt.tab.c" /* yacc.c:1652  */
+#line 46 "synt.y" /* yacc.c:1652  */
+    { strcpy(suavType,(yyvsp[0].str));  }
+#line 1466 "synt.tab.c" /* yacc.c:1652  */
     break;
 
   case 15:
-#line 58 "synt.y" /* yacc.c:1652  */
-    {insererType((yyvsp[0].str));}
-#line 1483 "synt.tab.c" /* yacc.c:1652  */
+#line 47 "synt.y" /* yacc.c:1652  */
+    { strcpy(suavType,(yyvsp[0].str));  }
+#line 1472 "synt.tab.c" /* yacc.c:1652  */
     break;
 
   case 18:
-#line 63 "synt.y" /* yacc.c:1652  */
-    {inserer((yyvsp[0].str),"idf"); }
-#line 1489 "synt.tab.c" /* yacc.c:1652  */
+#line 52 "synt.y" /* yacc.c:1652  */
+    { if (doubleDeclaration((yyvsp[0].str))==1){ insererType((yyvsp[0].str),suavType); } else printf("erreur Semantique: double declation de %s, la ligne %d\n", (yyvsp[0].str), nb_ligne); }
+#line 1478 "synt.tab.c" /* yacc.c:1652  */
     break;
 
 
-#line 1493 "synt.tab.c" /* yacc.c:1652  */
+#line 1482 "synt.tab.c" /* yacc.c:1652  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1726,7 +1715,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 119 "synt.y" /* yacc.c:1918  */
+#line 108 "synt.y" /* yacc.c:1918  */
 
 main () 
 {
