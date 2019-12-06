@@ -1,4 +1,5 @@
+clear
 flex lexical.l
 bison -d synt.y
-gcc lex.yy.c synt.tab.c -lfl -ly -o giCompil.exe
+gcc lex.yy.c synt.tab.c -lfl -ly -o giCompil
 ./giCompil<expLang.txt

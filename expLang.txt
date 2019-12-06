@@ -2,30 +2,9 @@ $$include<InOut>
 $$include<Arithme>
 ALGORITHME isil
 VAR
-
-FONCTION xt_8lds_ddd ( a :entier . b:reel ):entier
-    VAR y.u:entier#
-    DEBUT
-        a:=y#
-        RETURN x#
-    FIN
-x.CONST Y.g[4]:entier#
+x.y.y.CONST Y.g[0]:entier#
 b:reel#
 c:chaine#
 DEBUT 
-    Tanque( x > y ) 
-    Faire
-    /*dsqdsq
-    ds
-    qdsq*/
     
-        ECRIRE ( " D 2 " )#
-        LIRE ( x . y ) #
-        RETURN x#
-    Fait
-    
-    Fonct1 ( x . y ) #
-    x:=( y + A ) + 4 #
-    y:= 25#
-    g[1]:= 7#   
 FIN

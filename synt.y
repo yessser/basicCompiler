@@ -1,15 +1,43 @@
-%token  idf cst   aff  pvg algo var dp vg entier reel chaine  deb fin idfTAB
+%{
+#include <stdio.h>
+#include <string.h>
+
+
+extern int yylineno;
+int cptTypes;
+int CpTabSym;
+
+void insererType(char Type[])
+        {    
+                for(int i=cptTypes;i>0;i--)
+                {
+                    strcpy(ts[CpTabSym-i].TypeEntite,Type);
+                }
+                cptTypes=0;
+                
+        }  
+%}
+%token  <str>idf <entier>cst aff  pvg algo var dp vg <str>entier <str>reel <str>chaine  deb fin idfTAB
         InOut Arithme O F include 
         idfFonc
-         oprt cprt
+        oprt cprt
         obrk cbrk mc_const
         idenFun Return guil Ecrire Lire 
         notEqual great infr greatEql infrEql equal
         plus minus mult dive tanq Faire Fait 
         Str
+%locations
+%union{
+        int entier;
+        char* str;
+}
+        
   
 %%
-S: LISTE_BIBL algo idf DECLARATION CORPS { printf("syntaxe correcte");};
+
+
+S: LISTE_BIBL algo idf DECLARATION CORPS  { printf("syntaxe correcte");YYACCEPT;}
+;
 
 LISTE_BIBL: include infr BIBL F  LISTE_BIBL
             |
@@ -25,15 +53,19 @@ LISTE_PARAM: idf dp TYPE vg LISTE_PARAM
             |idf dp TYPE
             |
 ;
-TYPE: entier | reel | chaine
+TYPE:entier {insererType($1);}
+    |reel {insererType($1);}
+    |chaine  {insererType($1);}
 ;
 DECLARATIONVAR: LISTE_IDF dp TYPE pvg DECLARATIONVAR 
                 |
 ;
-IDENTIF:idf | idfTAB | mc_const idf
+IDENTIF:idf {inserer($1,"idf"); }
+        | idfTAB 
+        | mc_const idf
 ;
 LISTE_IDF: IDENTIF vg LISTE_IDF
-          |IDENTIF
+          |IDENTIF 
 ;
 
 
@@ -53,8 +85,8 @@ OPERATEUR:plus|minus|mult|dive
 ;
 OPERAND:idfTAB|idf|cst
 ;
-Expr_Arit:OPERAND
-        |Expr_Arit OPERATEUR Expr_Arit
+Expr_Arit:OPERAND 
+        |Expr_Arit OPERATEUR Expr_Arit 
         |oprt Expr_Arit cprt
 ;
 
@@ -88,6 +120,8 @@ RETURN:Return idf pvg
 main () 
 {
 yyparse();
+afficher();
 }
+
 yywrap() 
 {}
