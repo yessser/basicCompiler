@@ -101,7 +101,7 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 11 "synt.y" /* yacc.c:1921  */
+#line 13 "synt.y" /* yacc.c:1921  */
 
         int entier;
         char* str;

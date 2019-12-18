@@ -2,8 +2,15 @@ $$include<InOut>
 $$include<Arithme>
 ALGORITHME isil
 VAR
-x.y.CONST Y.g[0]:entier#
-b:reel#
+FONCTION Test( x:entier . y: entier) :entier
+VAR
+w:entier#
+DEBUT
+x:=4#
+FIN 
+
+x.y.CONST Y.G[5]:entier#
+h.g:reel#
 c:chaine#
 DEBUT 
     

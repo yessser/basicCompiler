@@ -4,7 +4,8 @@
 #include <stdio.h>
 #include <string.h>
 
-extern nb_ligne;
+extern int nb_ligne;
+extern char sauvFct[15];
 extern YYSTYPE yylval;
 
 %}
@@ -37,7 +38,7 @@ Fait return Fait;
 $$include return include;
 InOut return InOut;
 Arithme return Arithme;
-\>\n return F;
+\>\n {nb_ligne++; return F;}
 \( return oprt;
 \) return cprt;
 \> return great;
@@ -51,14 +52,12 @@ LIRE return Lire;
 RETURN return Return;
 \" return guil;
 \n nb_ligne++;
-FONCTION" "*{IDFFONC} return idfFonc; 
-{IDFFONC}" "*\( return idenFun;
+FONCTION" "*{IDFFONC} {yylval.str=strdup(yytext); inserer(yytext,"idf",""); return idfFonc;} 
 \[ return obrk;   
 \] return cbrk;
 CONST return mc_const;
-{IDF}\[{cst}\] return idfTAB;
-{IDF}  {yylval.str=strdup(yytext); inserer(yytext,"idf"); return idf;}
-{cst} {yylval.entier=atoi(yytext); inserer(yytext,"idf"); return cst;}
+{IDF}  {yylval.str=strdup(yytext);  return idf;}
+{cst} {yylval.entier=atoi(yytext); return cst;}
 := return aff;
 # return pvg;
 \+ return plus;

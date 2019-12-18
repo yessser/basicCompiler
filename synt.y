@@ -3,6 +3,8 @@
 #include <string.h>
 
 char suavType[20];
+char sauvFct[15]="";
+char sauvTypeFunct[15];
 int nb_ligne=1;
 
 
@@ -28,7 +30,7 @@ int nb_ligne=1;
 %%
 
 
-S: LISTE_BIBL algo idf DECLARATION CORPS  { printf("syntaxe correcte");YYACCEPT;}
+S: LISTE_BIBL algo idf {DECLARATION CORPS  { printf("syntaxe correcte");YYACCEPT;}
 ;
 
 LISTE_BIBL: include infr BIBL F  LISTE_BIBL
@@ -38,23 +40,23 @@ BIBL: InOut |Arithme
 ;
 DECLARATION: var DECLARATIONFONC DECLARATIONVAR
 ;
-DECLARATIONFONC:idfFonc oprt LISTE_PARAM cprt dp TYPE var DECLARATIONVAR CORPS  DECLARATIONFONC 
+DECLARATIONFONC:idfFonc {strcpy(sauvTypeFunct,$1); strcpy(sauvFct,$1);} oprt LISTE_PARAM cprt dp TYPE {strcpy(sauvTypeFunct,"");} var DECLARATIONVAR CORPS {strcpy(sauvFct,"");} DECLARATIONFONC 
             |
 ;
-LISTE_PARAM: idf dp TYPE vg LISTE_PARAM
-            |idf dp TYPE
+LISTE_PARAM: idf dp TYPE vg LISTE_PARAM { inserer($1,"idf",sauvFct); inserePrm($1,sauvFct); }
+            |idf dp TYPE { inserer($1,"idf",sauvFct); inserePrm($1,sauvFct);}
             |
 ;
-TYPE:entier  { strcpy(suavType,$1);  }
-    |reel  { strcpy(suavType,$1);  }
-    |chaine  { strcpy(suavType,$1);  }
+TYPE:entier  { if(strcmp(sauvTypeFunct,"")==1) insererTypeFunct(sauvTypeFunct,$1); else insererType($1); }
+    |reel  {  if(strcmp(sauvTypeFunct,"")==1) insererTypeFunct(sauvTypeFunct,$1); else insererType($1); }
+    |chaine  { if(strcmp(sauvTypeFunct,"")==1) insererTypeFunct(sauvTypeFunct,$1); else insererType($1); }
 ;
-DECLARATIONVAR: LISTE_IDF dp TYPE pvg DECLARATIONVAR 
-                |
+DECLARATIONVAR:LISTE_IDF dp TYPE pvg DECLARATIONVAR 
+              |
 ;
-IDENTIF:idf { if (doubleDeclaration($1)==1){ insererType($1,suavType); } else printf("erreur Semantique: double declation de %s, la ligne %d\n", $1, nb_ligne); }
-        | idfTAB 
-        | mc_const idf
+IDENTIF:idf  {inserer($1,"idf",sauvFct);}
+| idf obrk cst cbrk { inserer($1,"idf",sauvFct); insertTable($1,"Table",$3,sauvFct);}
+        | mc_const idf { inserer($1,"idf",sauvFct); insertCST($2,sauvFct);}
 ;
 LISTE_IDF: IDENTIF vg LISTE_IDF
           |IDENTIF 
@@ -114,6 +116,5 @@ main ()
 yyparse();
 afficher();
 }
-
 yywrap() 
 {}
