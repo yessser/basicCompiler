@@ -1,10 +1,11 @@
 $$include<InOut>
 $$include<Arithme>
+
 ALGORITHME isil
 VAR
-FONCTION Test( x:entier . y: entier) :entier
+FONCTION Test( y:entier . z:chaine . x: reel):chaine   
 VAR
-w:entier#
+w:chaine#
 DEBUT
 x:=4#
 FIN 
@@ -13,5 +14,8 @@ x.y.CONST Y.G[5]:entier#
 h.g:reel#
 c:chaine#
 DEBUT 
-    
+   Tanque(x=z)
+   Faire
+       x:=2#
+   Fait 
 FIN

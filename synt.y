@@ -1,13 +1,14 @@
 %{
 #include <stdio.h>
 #include <string.h>
-
+#include "Table.h"
 char suavType[20];
 char sauvFct[15]="";
 char sauvTypeFunct[15];
 int nb_ligne=1;
-
-
+int qc=0;
+char tmp[20];
+int deb_while;
 %}
 
 %union{
@@ -30,7 +31,7 @@ int nb_ligne=1;
 %%
 
 
-S: LISTE_BIBL algo idf {DECLARATION CORPS  { printf("syntaxe correcte");YYACCEPT;}
+S: LISTE_BIBL algo idf DECLARATION CORPS  { printf("syntaxe correcte");YYACCEPT;}
 ;
 
 LISTE_BIBL: include infr BIBL F  LISTE_BIBL
@@ -40,23 +41,25 @@ BIBL: InOut |Arithme
 ;
 DECLARATION: var DECLARATIONFONC DECLARATIONVAR
 ;
-DECLARATIONFONC:idfFonc {strcpy(sauvTypeFunct,$1); strcpy(sauvFct,$1);} oprt LISTE_PARAM cprt dp TYPE {strcpy(sauvTypeFunct,"");} var DECLARATIONVAR CORPS {strcpy(sauvFct,"");} DECLARATIONFONC 
+DECLARATIONFONC:idfFonc  {strcpy(sauvFct,$1);} oprt LISTE_PARAM {strcpy(sauvTypeFunct,$1);} cprt dp TYPE {strcpy(sauvTypeFunct,"");} var DECLARATIONVAR CORPS {strcpy(sauvFct,"");} DECLARATIONFONC 
             |
 ;
-LISTE_PARAM: idf dp TYPE vg LISTE_PARAM { inserer($1,"idf",sauvFct); inserePrm($1,sauvFct); }
-            |idf dp TYPE { inserer($1,"idf",sauvFct); inserePrm($1,sauvFct);}
+LISTE_PARAM: PARAM vg  LISTE_PARAM 
+            |PARAM
             |
 ;
-TYPE:entier  { if(strcmp(sauvTypeFunct,"")==1) insererTypeFunct(sauvTypeFunct,$1); else insererType($1); }
-    |reel  {  if(strcmp(sauvTypeFunct,"")==1) insererTypeFunct(sauvTypeFunct,$1); else insererType($1); }
-    |chaine  { if(strcmp(sauvTypeFunct,"")==1) insererTypeFunct(sauvTypeFunct,$1); else insererType($1); }
+PARAM: idf dp { inserer($1,"idf",sauvFct); inserePrm($1,sauvFct); } TYPE  
+;
+TYPE:entier  { if(strcmp(sauvTypeFunct,"")!=0) insererTypeFct(sauvTypeFunct,$1); else insererType($1); }
+    |reel  {  if(strcmp(sauvTypeFunct,"")!=0) insererTypeFct(sauvTypeFunct,$1); else insererType($1); }
+    |chaine  { if(strcmp(sauvTypeFunct,"")!=0) insererTypeFct(sauvTypeFunct,$1); else insererType($1); }
 ;
 DECLARATIONVAR:LISTE_IDF dp TYPE pvg DECLARATIONVAR 
               |
 ;
 IDENTIF:idf  {inserer($1,"idf",sauvFct);}
 | idf obrk cst cbrk { inserer($1,"idf",sauvFct); insertTable($1,"Table",$3,sauvFct);}
-        | mc_const idf { inserer($1,"idf",sauvFct); insertCST($2,sauvFct);}
+        | mc_const idf { inserer($2,"idf",sauvFct); insertCST($2,sauvFct);}
 ;
 LISTE_IDF: IDENTIF vg LISTE_IDF
           |IDENTIF 
@@ -85,7 +88,7 @@ Expr_Arit:OPERAND
 ;
 
 
-BOUCLE: tanq CONDITION cprt Faire LISTE_INST Fait
+BOUCLE: tanq CONDITION cprt {printf("S"); deb_while = qc; quadr("BZ","","temp_cond","vide"); } Faire LISTE_INST Fait { sprintf(tmp,"%d",qc); ajour_quad(deb_while,1,tmp);}   
 ;
 
 
@@ -115,6 +118,8 @@ main ()
 {
 yyparse();
 afficher();
+affichTF();
+afficher_qdr();
 }
 yywrap() 
 {}

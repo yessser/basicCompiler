@@ -1,6 +1,6 @@
 %{
 #include "synt.tab.h"
-#include "Table.h"
+//#include "Table.h"
 #include <stdio.h>
 #include <string.h>
 
@@ -16,7 +16,7 @@ chiffre [0-9]
 IDF {lettre}({lettre}|{chiffre}|_)*
 IDFCmntr [^"*/"]*
 IDFTxt [^"""]*
-cst {chiffre}+
+cst [+-]?{chiffre}+
 IDFFONC {lettre}({lettre}|{chiffre}|_){1,11}
 
 %%
@@ -52,7 +52,7 @@ LIRE return Lire;
 RETURN return Return;
 \" return guil;
 \n nb_ligne++;
-FONCTION" "*{IDFFONC} {yylval.str=strdup(yytext); inserer(yytext,"idf",""); return idfFonc;} 
+FONCTION" "*{IDFFONC} {yylval.str=strdup(yytext); insererFct(yytext); return idfFonc;} 
 \[ return obrk;   
 \] return cbrk;
 CONST return mc_const;
